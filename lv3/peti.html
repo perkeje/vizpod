@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+</head>
+<body>
+   <script>
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", "800")
+            .attr("height", "700")
+            .style("background", "darkgray")
+        svg.append("circle")
+            .attr("cx", "400")
+            .attr("cy", "350")
+            .attr("r", "80")
+            .style("fill", "darkorange")
+            .style("stroke", "black")
+        var colors = ["#996633", "#ff9900", "#0099cc", "red", "#663300", "#ff9900", "#00ccff", "#0066cc"]
+        var data= [
+            { R: 100, r: 4, index: 0, speed: 12 },
+            { R: 130, r: 6, index: 1, speed: 11 },
+            { R: 160, r: 8, index: 2, speed: 10 },
+            { R: 190, r: 5, index: 3, speed: 9 },
+            { R: 220, r: 15, index: 4, speed: 8, },
+            { R: 250, r: 13, index: 5, speed: 7, },
+            { R: 280, r: 11, index: 6, speed: 5, },
+            { R: 310, r: 10, index: 7, speed: 3, },
+        ];
+        svg.append("g")
+            .attr("transform", "translate(400,350)")
+            .selectAll("g.planet")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("class", "planet")
+            .each(function (d) {
+                d3.select(this)
+                    .append("circle")
+                    .attr("r", function (d) { return d.R; })
+                    .style("fill", "none")
+                    .style("stroke", "gray");
+                d3.select(this)
+                    .append("circle")
+                    .attr("cx", function (d) { return d.R; })
+                    .attr("cy", 0)
+                    .attr("r", function (d) { return d.r; })
+                    .attr("class", "planet")
+                    .style("fill", function (d) { return colors[d.index] });
+            });
+        var t0 = Date.now();
+        d3.timer(function () {
+            var delta = Date.now() - t0;
+            svg.selectAll(".planet")
+                .attr("transform", function (d) {
+                    return "rotate(" + delta * d.speed / 200 + ")";
+                });
+        });
+    </script>
+</body>
+</html>

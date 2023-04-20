@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <script>
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", "400")
+            .attr("height", "400")
+            .style("background","gray")
+        svg.append("rect")
+            .attr("x", "0")
+            .attr("y", "0")
+            .attr("width", "60")
+            .attr("height", "100")
+            .attr("style", "stroke:black;stroke-width:1;fill:red;")
+            .transition()
+            .delay(2000)
+            .duration(1000)
+            .attr("transform", "translate(340,0)")
+            .transition()
+            .duration(1000)
+            .attr("transform", "translate(340,300)");
+    </script>
+</body>
+</html>
